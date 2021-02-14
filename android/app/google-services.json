@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1031233842934",
+    "project_id": "miaged-e61d4",
+    "storage_bucket": "miaged-e61d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031233842934:android:e4d184db30b280b90146d7",
+        "android_client_info": {
+          "package_name": "com.sorelnadaud.miaged"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031233842934-fre72kn7c7rqmc516e48crilguubgkdo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCo1JM0F5WeJRpKMzNR9t2YVUDKT1mftpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031233842934-fre72kn7c7rqmc516e48crilguubgkdo.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1031233842934-famthuveg979aql90eihk5hjociuhq07.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sorelnadaud"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
