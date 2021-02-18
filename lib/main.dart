@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return FutureBuilder(
       future: initializeFirebase(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) initialRoute = '/feed';
+        if (snapshot.hasData) initialRoute = '/shop';
         if (snapshot.hasError) {
           return Center(
             child: Text(snapshot.error.toString()),

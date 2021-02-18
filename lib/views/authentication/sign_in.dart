@@ -63,7 +63,7 @@ class _SignInState extends State<SignInPage> {
                   if (_formKey.currentState.validate()) {
                     var result = await _authService.signIn(emailController.value.text, passwordController.value.text);
                     if (result != null) {
-                      Navigator.pushReplacementNamed(context, '/feed');
+                      Navigator.pushReplacementNamed(context, '/shop');
                     }
                   }
                 },

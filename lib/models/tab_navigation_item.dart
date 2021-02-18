@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/Dev/miaged/lib/views/offers_list_page.dart';
+import 'package:miaged/views/shop.dart';
+import 'package:miaged/views/shopping_cart.dart';
+import 'package:miaged/views/user_profile.dart';
 
 class TabNavigationItem {
   final Widget page;
@@ -9,8 +11,8 @@ class TabNavigationItem {
   TabNavigationItem({@required this.page, @required this.title, @required this.icon});
 
   static List<TabNavigationItem> get bottomNavigationItems => [
-        TabNavigationItem(page: OffersListPage(), title: 'Acheter', icon: Icon(Icons.shopping_basket)),
-        TabNavigationItem(page: OffersListPage(), title: 'Panier', icon: Icon(Icons.shopping_basket)),
-        TabNavigationItem(page: OffersListPage(), title: 'Profil', icon: Icon(Icons.shopping_basket))
+        TabNavigationItem(page: ShopPage(), title: 'Acheter', icon: Icon(Icons.attach_money)),
+        TabNavigationItem(page: ShoppingCartPage(), title: 'Panier', icon: Icon(Icons.shopping_basket)),
+        TabNavigationItem(page: UserProfilePage(), title: 'Profil', icon: Icon(Icons.person))
       ];
 }

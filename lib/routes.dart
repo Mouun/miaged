@@ -1,9 +1,9 @@
 import 'package:miaged/views/authentication/sign_in.dart';
 import 'package:miaged/views/authentication/sign_up.dart';
-import 'package:miaged/views/offers_list_page.dart';
+import 'package:miaged/views/shop_frame.dart';
 
 final routes = {
   '/sign-in': (context) => new SignInPage(),
-  '/feed': (context) => new OffersListPage(),
+  '/shop': (context) => new ShopFrame(),
   '/sign-up': (context) => new SignUpPage()
 };

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:miaged/locators.dart';
-import 'package:miaged/services/auth.service.dart';
 import 'package:miaged/widgets/authentified-appbar.dart';
-import 'package:provider/provider.dart';
 
-class OffersListPage extends StatelessWidget {
+class ShopPage extends StatefulWidget {
+  @override
+  _ShopPageState createState() => _ShopPageState();
+}
+
+class _ShopPageState extends State<ShopPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AuthentifiedAppBar(),
+      appBar: AuthentifiedAppBar(title: 'Produits'),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Feed', style: TextStyle(fontSize: 30)),
+            Text('Liste des produits', style: TextStyle(fontSize: 30)),
           ],
         ),
       ),

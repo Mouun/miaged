@@ -5,13 +5,16 @@ import 'package:miaged/services/auth.service.dart';
 class AuthentifiedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final _authService = locator<AuthService>();
   final AppBar appBar = new AppBar();
+  final String title;
+
+  AuthentifiedAppBar({@required this.title});
 
   @override
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(title: Text('MIAGED'), actions: [
+    return AppBar(title: Text(title), actions: [
       PopupMenuButton<String>(
         onSelected: (choice) => handlePopupMenuItemClick(choice, context),
         itemBuilder: (BuildContext context) {
