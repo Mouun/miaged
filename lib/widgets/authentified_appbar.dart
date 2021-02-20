@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/constants.dart';
 import 'package:miaged/locators.dart';
 import 'package:miaged/services/auth.service.dart';
 
@@ -14,19 +16,11 @@ class AuthentifiedAppBar extends StatelessWidget implements PreferredSizeWidget 
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(title: Text(title), actions: [
-      PopupMenuButton<String>(
-        onSelected: (choice) => handlePopupMenuItemClick(choice, context),
-        itemBuilder: (BuildContext context) {
-          return {'Paramètres', 'Se déconnecter'}.map((String choice) {
-            return PopupMenuItem<String>(
-              value: choice,
-              child: Text(choice),
-            );
-          }).toList();
-        },
-      )
-    ]);
+    return AppBar(
+      title: Text(title, style: GoogleFonts.montserrat(color: kMainColor, fontWeight: FontWeight.w700)),
+      elevation: 0,
+      backgroundColor: Colors.white
+    );
   }
 
   void handlePopupMenuItemClick(String value, BuildContext context) async {

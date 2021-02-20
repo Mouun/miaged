@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/widgets/authentified-appbar.dart';
+import 'package:miaged/widgets/authentified_appbar.dart';
 
 class UserProfilePage extends StatefulWidget {
   @override

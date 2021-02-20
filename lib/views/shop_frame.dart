@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/models/tab_navigation_item.dart';
+import '../constants.dart';
 
 class ShopFrame extends StatefulWidget {
   @override
@@ -18,10 +19,16 @@ class _ShopFrameState extends State<ShopFrame> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
+        selectedItemColor: kMainColor,
+        unselectedItemColor: kTextLightColor,
         onTap: (index) => setState(() => currentIndex = index),
         items: [
           for (var bottomNavigationItem in TabNavigationItem.bottomNavigationItems)
-            BottomNavigationBarItem(icon: bottomNavigationItem.icon, label: bottomNavigationItem.title)
+            BottomNavigationBarItem(
+              icon: bottomNavigationItem.activeIcon,
+              activeIcon: bottomNavigationItem.icon,
+              label: bottomNavigationItem.title,
+            )
         ],
       ),
     );

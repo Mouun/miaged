@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:miaged/constants.dart';
 import 'package:miaged/locators.dart';
 import 'package:miaged/routes.dart';
+import 'package:miaged/widgets/loading_indicator.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,11 +13,18 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   var initialRoute = '/sign-in';
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return FutureBuilder(
       future: initializeFirebase(),
       builder: (context, snapshot) {
@@ -26,11 +36,16 @@ class MyApp extends StatelessWidget {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              textTheme: GoogleFonts.latoTextTheme(textTheme)
+                .copyWith(bodyText2: TextStyle(color: kTextDefaultColor)),
+            ),
             initialRoute: initialRoute,
             routes: routes,
           );
         }
-        return CircularProgressIndicator();
+        return LoadingIndicator();
       },
     );
   }
@@ -40,5 +55,3 @@ class MyApp extends StatelessWidget {
     return FirebaseAuth.instance.currentUser;
   }
 }
-
-
