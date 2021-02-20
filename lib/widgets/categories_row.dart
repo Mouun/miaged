@@ -43,13 +43,13 @@ class _CategoriesRowState extends State<CategoriesRow> {
                   widget.categories[index].label.capitalize(),
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w700,
-                    color: selectedCategoryIndex == index ? kMainColor : kTextLightColor
-                  )
+                    color: selectedCategoryIndex == index ? kMainColor : kTextLightColor,
+                  ),
                 ),
-              )
+              ),
             ),
           );
-        }
+        },
       ),
     );
   }

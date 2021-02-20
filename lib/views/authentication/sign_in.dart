@@ -30,7 +30,13 @@ class _SignInState extends State<SignInPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Se connecter', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
+            Text(
+              'Se connecter',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
@@ -39,7 +45,8 @@ class _SignInState extends State<SignInPage> {
                 keyboardType: TextInputType.emailAddress,
                 validator: (value) {
                   if (value.isEmpty) return 'L\'adresse email est obligatoire';
-                  if (!value.isValidEmailAddress()) return 'L\'adresse email n\'est pas valide';
+                  if (!value.isValidEmailAddress())
+                    return 'L\'adresse email n\'est pas valide';
                   return null;
                 },
               ),
@@ -53,26 +60,35 @@ class _SignInState extends State<SignInPage> {
                 keyboardType: TextInputType.visiblePassword,
                 validator: (value) {
                   if (value.isEmpty) return 'Le mot de passe est obligatoire';
-                  if (!value.isValidPassword()) return 'Le mot de passe doit faire au moins de 6 caractères';
+                  if (!value.isValidPassword())
+                    return 'Le mot de passe doit faire au moins de 6 caractères';
                   return null;
                 },
               ),
             ),
             RaisedButton(
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    var result = await _authService.signIn(emailController.value.text, passwordController.value.text);
-                    if (result != null) {
-                      Navigator.pushReplacementNamed(context, '/shop');
-                    }
+              onPressed: () async {
+                if (_formKey.currentState.validate()) {
+                  var result = await _authService.signIn(
+                      emailController.value.text,
+                      passwordController.value.text);
+                  if (result != null) {
+                    Navigator.pushReplacementNamed(context, '/shop');
                   }
-                },
-                child: Text('Se connecter')),
+                }
+              },
+              child: Text(
+                'Se connecter',
+              ),
+            ),
             OutlineButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/sign-up');
-                },
-                child: Text('S\'inscrire'))
+              onPressed: () {
+                Navigator.pushNamed(context, '/sign-up');
+              },
+              child: Text(
+                'S\'inscrire',
+              ),
+            ),
           ],
         ),
       ),

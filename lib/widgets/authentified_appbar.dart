@@ -17,9 +17,15 @@ class AuthentifiedAppBar extends StatelessWidget implements PreferredSizeWidget 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: GoogleFonts.montserrat(color: kMainColor, fontWeight: FontWeight.w700)),
+      title: Text(
+        title,
+        style: GoogleFonts.montserrat(
+          color: kMainColor,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       elevation: 0,
-      backgroundColor: Colors.white
+      backgroundColor: Colors.white,
     );
   }
 

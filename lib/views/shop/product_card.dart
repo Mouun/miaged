@@ -17,7 +17,7 @@ class ProductCard extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(kDefaultPadding / 2),
             child: Image.network(product.images[0], fit: BoxFit.fitHeight),
-          )
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(top: 8),
@@ -32,20 +32,28 @@ class ProductCard extends StatelessWidget {
           child: Text(
             product.size,
             style: GoogleFonts.lato(color: kTextLightColor),
-          )
+          ),
         ),
         Row(
           children: [
             Text(
               "${product.price / 100}€",
-              style: GoogleFonts.montserrat(fontWeight: FontWeight.w500, fontSize: 18, color: kMainColor)
+              style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w500,
+                fontSize: 18,
+                color: kMainColor,
+              ),
             ),
             Spacer(),
             IconButton(
-              icon: Icon(Icons.add_shopping_cart, color: kMainColor, size: 20),
+              icon: Icon(
+                Icons.add_shopping_cart,
+                color: kMainColor,
+                size: 20,
+              ),
               onPressed: () {
                 print('ok');
-              }
+              },
             ),
           ],
         )

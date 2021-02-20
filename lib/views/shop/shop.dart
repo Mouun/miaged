@@ -38,7 +38,8 @@ class _ShopPageState extends State<ShopPage> {
   List<Product> getFilteredProductsList(ShopViewData baseData) {
     if (selectedCategoryIndex != 0) {
       return baseData.products
-          .where((product) => product.category == baseData.categories[selectedCategoryIndex].label)
+          .where((product) =>
+              product.category == baseData.categories[selectedCategoryIndex].label)
           .toList();
     } else {
       return baseData.products;
@@ -80,20 +81,25 @@ class _ShopPageState extends State<ShopPage> {
                       color: kMainColor,
                       onRefresh: _handleRefresh,
                       child: GridView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding, vertical: kDefaultPadding - 8),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: kDefaultPadding,
+                          vertical: kDefaultPadding - 8,
+                        ),
                         itemCount: filteredProducts.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: kDefaultPadding,
                           crossAxisSpacing: kDefaultPadding,
-                          childAspectRatio: 0.5
+                          childAspectRatio: 0.5,
                         ),
                         itemBuilder: (context, index) => Material(
-                          child: ProductCard(product: filteredProducts[index])
-                        )
+                          child: ProductCard(
+                            product: filteredProducts[index],
+                          ),
+                        ),
                       ),
-                    )
-                  )
+                    ),
+                  ),
                 ],
               ),
             );
@@ -101,8 +107,8 @@ class _ShopPageState extends State<ShopPage> {
             return Text(snapshot.error.toString());
           }
           return LoadingIndicator();
-        }
-      )
+        },
+      ),
     );
   }
 }

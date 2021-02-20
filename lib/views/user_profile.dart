@@ -12,7 +12,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return Scaffold(
       appBar: AuthentifiedAppBar(title: 'Profil'),
       body: Center(
-        child: Text('Profil Utilisateur', style: TextStyle(fontSize: 30)),
+        child: Text(
+          'Profil Utilisateur',
+          style: TextStyle(fontSize: 30),
+        ),
       ),
     );
   }

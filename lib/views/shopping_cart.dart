@@ -12,7 +12,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     return Scaffold(
       appBar: AuthentifiedAppBar(title: 'Panier'),
       body: Center(
-        child: Text('Panier', style: TextStyle(fontSize: 30)),
+        child: Text(
+          'Panier',
+          style: TextStyle(fontSize: 30),
+        ),
       ),
     );
   }

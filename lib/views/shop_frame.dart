@@ -15,7 +15,10 @@ class _ShopFrameState extends State<ShopFrame> {
     return Scaffold(
       body: IndexedStack(
         index: currentIndex,
-        children: [for (var bottomNavigationItem in TabNavigationItem.bottomNavigationItems) bottomNavigationItem.page],
+        children: [
+          for (var bottomNavigationItem in TabNavigationItem.bottomNavigationItems)
+            bottomNavigationItem.page
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
@@ -28,7 +31,7 @@ class _ShopFrameState extends State<ShopFrame> {
               icon: bottomNavigationItem.activeIcon,
               activeIcon: bottomNavigationItem.icon,
               label: bottomNavigationItem.title,
-            )
+            ),
         ],
       ),
     );
