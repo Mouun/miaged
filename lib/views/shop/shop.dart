@@ -4,6 +4,7 @@ import 'package:miaged/models/category.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/services/categories.service.dart';
 import 'package:miaged/services/products.service.dart';
+import 'package:miaged/views/offer_details.dart';
 import 'package:miaged/views/shop/product_card.dart';
 import 'package:miaged/widgets/authentified_appbar.dart';
 import 'package:miaged/widgets/categories_row.dart';
@@ -39,7 +40,8 @@ class _ShopPageState extends State<ShopPage> {
     if (selectedCategoryIndex != 0) {
       return baseData.products
           .where((product) =>
-              product.category == baseData.categories[selectedCategoryIndex].label)
+              product.category ==
+              baseData.categories[selectedCategoryIndex].label)
           .toList();
     } else {
       return baseData.products;
@@ -60,13 +62,15 @@ class _ShopPageState extends State<ShopPage> {
         future: viewData,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            List<Product> filteredProducts = getFilteredProductsList(snapshot.data);
+            List<Product> filteredProducts =
+                getFilteredProductsList(snapshot.data);
             return Container(
               color: Colors.white,
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
+                    padding:
+                        EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
                     child: CategoriesRow(
                       categories: snapshot.data.categories,
                       handleClickCategory: (index) {
@@ -93,8 +97,21 @@ class _ShopPageState extends State<ShopPage> {
                           childAspectRatio: 0.5,
                         ),
                         itemBuilder: (context, index) => Material(
+                          color: Colors.white,
                           child: ProductCard(
                             product: filteredProducts[index],
+                            handleOnTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return ProductDetailsPage(
+                                      product: filteredProducts[index],
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                           ),
                         ),
                       ),

@@ -5,7 +5,8 @@ class AuthService {
   Future<UserCredential> signUp(String email, String password) async {
     UserCredential userCredential;
     try {
-      userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
@@ -21,7 +22,8 @@ class AuthService {
   Future<UserCredential> signIn(String email, String password) async {
     var userCredential;
     try {
-      userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');

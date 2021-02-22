@@ -16,7 +16,8 @@ class _ShopFrameState extends State<ShopFrame> {
       body: IndexedStack(
         index: currentIndex,
         children: [
-          for (var bottomNavigationItem in TabNavigationItem.bottomNavigationItems)
+          for (var bottomNavigationItem
+              in TabNavigationItem.bottomNavigationItems)
             bottomNavigationItem.page
         ],
       ),
@@ -26,10 +27,11 @@ class _ShopFrameState extends State<ShopFrame> {
         unselectedItemColor: kTextLightColor,
         onTap: (index) => setState(() => currentIndex = index),
         items: [
-          for (var bottomNavigationItem in TabNavigationItem.bottomNavigationItems)
+          for (var bottomNavigationItem
+              in TabNavigationItem.bottomNavigationItems)
             BottomNavigationBarItem(
-              icon: bottomNavigationItem.activeIcon,
-              activeIcon: bottomNavigationItem.icon,
+              icon: bottomNavigationItem.icon,
+              activeIcon: bottomNavigationItem.activeIcon,
               label: bottomNavigationItem.title,
             ),
         ],

@@ -4,9 +4,20 @@ import 'package:miaged/models/product.dart';
 
 class ProductsService {
   Future<List<Product>> getAllProducts() async {
-    QuerySnapshot productsSnapshot =
-        await FirebaseFirestore.instance.collection(kProductsCollectionName).orderBy('id').get();
+    QuerySnapshot productsSnapshot = await FirebaseFirestore.instance
+        .collection(kProductsCollectionName)
+        .orderBy('id')
+        .get();
 
     return productsSnapshot.docs.map((element) => Product.fromSnap(element)).toList();
+  }
+
+  Future<Product> getProduct(int productId) async {
+    QuerySnapshot productsSnapshot = await FirebaseFirestore.instance
+        .collection(kProductsCollectionName)
+        .where('id', isEqualTo: productId)
+        .get();
+
+    return Product.fromSnap(productsSnapshot.docs.first);
   }
 }

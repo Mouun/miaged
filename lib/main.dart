@@ -38,8 +38,13 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              textTheme: GoogleFonts.latoTextTheme(textTheme)
-                .copyWith(bodyText2: TextStyle(color: kTextDefaultColor)),
+              primaryColor: kMainColor,
+              accentColor: kMainColor,
+              textTheme: GoogleFonts.latoTextTheme(
+                textTheme,
+              ).copyWith(
+                bodyText2: TextStyle(color: kTextDefaultColor),
+              ),
             ),
             initialRoute: initialRoute,
             routes: routes,
