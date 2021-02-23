@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:miaged/extensions/string.extension.dart';
 import 'package:miaged/locators.dart';
 import 'package:miaged/services/auth.service.dart';
+import 'package:miaged/widgets/custom_button.dart';
+import 'package:miaged/widgets/custom_button_empty.dart';
+
+import '../../constants.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -18,37 +22,31 @@ class _SignUpState extends State<SignUpPage> {
     return Scaffold(
       appBar: AppBar(title: Text('MIAGED')),
       resizeToAvoidBottomPadding: false,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'S\'inscrire',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
+      body: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'S\'inscrire',
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 24,
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            TextField(
               controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
+            TextField(
               controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextFormField(
+            TextFormField(
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Confirmation du mot de passe',
@@ -64,27 +62,29 @@ class _SignUpState extends State<SignUpPage> {
                 return null;
               },
             ),
-          ),
-          RaisedButton(
-            onPressed: () async {
-              await _authService.signUp(
-                  emailController.text, passwordController.text);
-            },
-            child: Text(
-              'S\'inscrire',
+            Padding(
+              padding: EdgeInsets.only(
+                top: kDefaultPadding * 2,
+                bottom: 16,
+              ),
+              child: CustomButton(
+                text: 'S\'inscrire',
+                onPressed: () async {
+                  await _authService.signUp(
+                      emailController.text, passwordController.text);
+                },
+              ),
             ),
-          ),
-          OutlineButton(
-            onPressed: () {
-              Navigator.pop(
-                context,
-              );
-            },
-            child: Text(
-              'Déjà inscrit ? Se connecter',
+            CustomButtonEmpty(
+              text: 'Se connecter',
+              onPressed: () {
+                Navigator.pop(
+                  context,
+                );
+              },
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

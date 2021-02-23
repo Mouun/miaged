@@ -145,17 +145,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ),
             Positioned.fill(
               child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    color: Colors.white,
-                    child: Padding(
-                      padding: EdgeInsets.all(kDefaultPadding),
-                      child: CustomButton(
-                        text: 'Ajouter au panier',
-                        onPressed: () {},
-                      ),
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: EdgeInsets.all(kDefaultPadding),
+                    child: CustomButton(
+                      text: 'Ajouter au panier',
+                      onPressed: () {},
                     ),
-                  )),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
