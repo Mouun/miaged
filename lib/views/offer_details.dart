@@ -158,6 +158,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),
               ),
             ),
+            Positioned.fill(
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Material(
+                  color: Colors.transparent,
+                  child: Container(
+                    child: Padding(
+                      padding: EdgeInsets.all(kDefaultPadding),
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(
+                            context,
+                          );
+                        },
+                        icon: Icon(Icons.arrow_back),
+                        color: kMainColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
