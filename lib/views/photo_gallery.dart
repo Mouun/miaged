@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class PhotoGallery extends StatefulWidget {
-  PhotoGallery({
-    @required this.images,
-    this.initialIndex,
-  });
+class ImagesGallery extends StatefulWidget {
 
   final int initialIndex;
   final List<String> images;
 
+  ImagesGallery({
+    @required this.images,
+    this.initialIndex,
+  });
+
   @override
-  _PhotoGalleryState createState() => _PhotoGalleryState();
+  _ImagesGalleryState createState() => _ImagesGalleryState();
 }
 
-class _PhotoGalleryState extends State<PhotoGallery> {
+class _ImagesGalleryState extends State<ImagesGallery> {
   int currentIndex;
 
   void _onPageChanged(int index) {

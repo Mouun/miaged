@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miaged/views/shop/shop.dart';
+import 'package:miaged/views/shop.dart';
 import 'package:miaged/views/shopping_cart.dart';
 import 'package:miaged/views/user_profile.dart';
 

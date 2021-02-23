@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
               Text(
                 "${product.price / 100}€",
                 style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: kMainColor,
                 ),

@@ -8,6 +8,9 @@ class Product {
   final int price;
   final String size;
   final String category;
+  final String brand;
+  final String condition;
+  final String color;
 
   Product({
     this.id,
@@ -17,6 +20,9 @@ class Product {
     this.price,
     this.size,
     this.category,
+    this.brand,
+    this.condition,
+    this.color,
   });
 
   factory Product.fromSnap(QueryDocumentSnapshot productSnap) {
@@ -28,6 +34,9 @@ class Product {
       price: productSnap.data()['price'],
       size: productSnap.data()['size'],
       category: productSnap.data()['category'],
+      brand: productSnap.data()['brand'],
+      condition: productSnap.data()['condition'],
+      color: productSnap.data()['color'],
     );
   }
 }
