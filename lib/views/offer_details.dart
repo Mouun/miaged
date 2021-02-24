@@ -25,128 +25,123 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       child: Scaffold(
         body: Stack(
           children: [
-            SizedBox(
-              height: pageSize.height * 0.5,
-              child: ImagesSwiper(images: widget.product.images),
-            ),
-            DraggableScrollableSheet(
-              initialChildSize: 0.55,
-              minChildSize: 0.55,
-              maxChildSize: 0.85,
-              builder: (context, scrollController) {
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                  ),
-                  child: SingleChildScrollView(
-                    controller: scrollController,
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(
-                        bottom: kDefaultPadding * 2,
-                        left: kDefaultPadding,
-                        right: kDefaultPadding,
-                        top: kDefaultPadding,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              children: [
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Column(
                         children: [
-                          Text(
-                            widget.product.title,
-                            style: GoogleFonts.montserrat(
-                              color: kMainColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                          SizedBox(
+                            height: pageSize.height * 0.5,
+                            child: ImagesSwiper(images: widget.product.images),
                           ),
-                          Padding(
-                            padding: EdgeInsets.only(
-                              top: 16,
-                              bottom: 32,
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            padding: const EdgeInsets.only(
+                              top: kDefaultPadding,
+                              left: kDefaultPadding,
+                              right: kDefaultPadding,
                             ),
-                            child: RichText(
-                              text: TextSpan(
-                                style: GoogleFonts.lato(
-                                  color: kTextDefaultColor,
-                                  fontSize: 16,
-                                ),
-                                text: '${widget.product.size} · ',
-                                children: [
-                                  TextSpan(
-                                    text: '${widget.product.condition} · ',
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.product.title,
+                                  style: GoogleFonts.montserrat(
+                                    color: kMainColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
                                   ),
-                                  TextSpan(
-                                    text: widget.product.brand,
-                                    style: TextStyle(
-                                      color: kMainColor,
-                                      fontWeight: FontWeight.w600,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: 16,
+                                    bottom: 32,
+                                  ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: GoogleFonts.lato(
+                                        color: kTextDefaultColor,
+                                        fontSize: 16,
+                                      ),
+                                      text: '${widget.product.size} · ',
+                                      children: [
+                                        TextSpan(
+                                          text: '${widget.product.condition} · ',
+                                        ),
+                                        TextSpan(
+                                          text: widget.product.brand,
+                                          style: TextStyle(
+                                            color: kMainColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  'Couleur',
+                                  style: GoogleFonts.montserrat(
+                                    color: kTextDefaultColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: kDefaultPadding / 2,
+                                  ),
+                                  child: Container(
+                                    width: 32,
+                                    height: 32,
+                                    decoration: new BoxDecoration(
+                                      color: HexColor.fromHex(widget.product.color),
+                                      shape: BoxShape.circle,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Description',
+                                  style: GoogleFonts.montserrat(
+                                    color: kTextDefaultColor,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    vertical: kDefaultPadding / 2,
+                                  ),
+                                  child: ExpandText(
+                                    widget.product.description
+                                        .replaceAll('\\n', '\n'),
+                                    maxLines: 3,
+                                    style: GoogleFonts.lato(
+                                      color: kTextDefaultColor,
+                                    ),
+                                    arrowColor: kMainColor,
+                                  ),
+                                ),
+                                Text(
+                                  '${widget.product.price / 100}€',
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 34,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            'Couleur',
-                            style: GoogleFonts.montserrat(
-                              color: kTextDefaultColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: kDefaultPadding / 2,
-                            ),
-                            child: Container(
-                              width: 32,
-                              height: 32,
-                              decoration: new BoxDecoration(
-                                color: HexColor.fromHex(widget.product.color),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            'Description',
-                            style: GoogleFonts.montserrat(
-                              color: kTextDefaultColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          ExpandText(
-                            widget.product.description.replaceAll('\\n', '\n'),
-                            maxLines: 3,
-                            style: GoogleFonts.lato(
-                              color: kTextDefaultColor,
-                            ),
-                            arrowColor: kMainColor,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(top: kDefaultPadding / 2),
-                            child: Text(
-                              '${widget.product.price / 100}€',
-                              style: GoogleFonts.montserrat(
-                                fontSize: 34,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          )
                         ],
                       ),
-                    ),
+                    ],
                   ),
-                );
-              },
-            ),
-            Positioned.fill(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
+                ),
+                Container(
                   color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(kDefaultPadding),
@@ -156,7 +151,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
             Positioned.fill(
               child: Align(
@@ -173,7 +168,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           );
                         },
                         icon: Icon(Icons.arrow_back),
-                        color: kMainColor,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -40,7 +40,7 @@ class ImagesSwiper extends StatelessWidget {
         );
       },
       pagination: SwiperPagination(
-        margin: EdgeInsets.only(bottom: kDefaultPadding * 2.5),
+        margin: EdgeInsets.only(bottom: kDefaultPadding / 2),
         builder: new DotSwiperPaginationBuilder(
           activeColor: kMainColor,
         ),
