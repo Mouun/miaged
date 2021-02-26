@@ -13,8 +13,6 @@ class AppUsersService {
     AppUser finalUser =
         userSnapshot.docs.map((userApp) => AppUser.fromSnap(userApp)).toList()[0];
 
-    print(finalUser.birthdate);
-
     return finalUser;
   }
 }

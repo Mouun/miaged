@@ -24,9 +24,9 @@ class CartsService {
   Future<bool> isInAppUserCart(String firebaseRef) async {
     Cart cart = await getCart();
 
-    cart.products.forEach((product) {
+    for (Product product in cart.products) {
       if (product.firebaseRef == firebaseRef) return true;
-    });
+    }
 
     return false;
   }
@@ -37,8 +37,12 @@ class CartsService {
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
         .get();
 
+    DocumentReference productRef = FirebaseFirestore.instance
+        .collection(kProductsCollectionName)
+        .doc(firebaseRef);
+
     cartSnapshot.docs.first.reference.update({
-      'products': FieldValue.arrayUnion(['/$kProductsCollectionName/$firebaseRef'])
+      'products': FieldValue.arrayUnion([productRef])
     });
   }
 
@@ -48,8 +52,12 @@ class CartsService {
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
         .get();
 
+    DocumentReference productRef = FirebaseFirestore.instance
+        .collection(kProductsCollectionName)
+        .doc(firebaseRef);
+
     cartSnapshot.docs.first.reference.update({
-      'products': FieldValue.arrayRemove(['/$kProductsCollectionName/$firebaseRef'])
+      'products': FieldValue.arrayRemove([productRef])
     });
   }
 }
