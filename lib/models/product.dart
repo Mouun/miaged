@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Product {
+  final String firebaseRef;
   final int id;
   final String title;
   final String description;
@@ -13,6 +14,7 @@ class Product {
   final String color;
 
   Product({
+    this.firebaseRef,
     this.id,
     this.title,
     this.description,
@@ -25,8 +27,9 @@ class Product {
     this.color,
   });
 
-  factory Product.fromSnap(QueryDocumentSnapshot productSnap) {
+  factory Product.fromSnap(dynamic productSnap, String firebaseRef) {
     return Product(
+      firebaseRef: firebaseRef,
       id: productSnap.data()['id'],
       title: productSnap.data()['title'],
       description: productSnap.data()['description'],

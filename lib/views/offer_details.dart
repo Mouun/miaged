@@ -5,8 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constants.dart';
 import 'package:miaged/extensions/color.extension.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/services/app_users.service.dart';
+import 'package:miaged/services/carts.service.dart';
 import 'package:miaged/widgets/custom_button.dart';
 import 'package:miaged/widgets/images_swiper.dart';
+
+import '../locators.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final Product product;
@@ -18,6 +22,9 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  AppUsersService _appUsersService = locator<AppUsersService>();
+  CartsService _cartService = locator<CartsService>();
+
   @override
   Widget build(BuildContext context) {
     Size pageSize = MediaQuery.of(context).size;
@@ -117,8 +124,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                     vertical: kDefaultPadding / 2,
                                   ),
                                   child: ExpandText(
-                                    widget.product.description
-                                        .replaceAll('\\n', '\n'),
+                                    widget.product.description.replaceAll('\\n', '\n'),
                                     maxLines: 3,
                                     style: GoogleFonts.lato(
                                       color: kTextDefaultColor,
@@ -147,7 +153,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     padding: EdgeInsets.all(kDefaultPadding),
                     child: CustomButton(
                       text: 'Ajouter au panier',
-                      onPressed: () {},
+                      onPressed: () => _cartService.removeProductFromCart(
+                        widget.product.firebaseRef,
+                      ),
                     ),
                   ),
                 ),

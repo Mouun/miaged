@@ -9,7 +9,9 @@ class ProductsService {
         .orderBy('id')
         .get();
 
-    return productsSnapshot.docs.map((element) => Product.fromSnap(element)).toList();
+    return productsSnapshot.docs
+        .map((element) => Product.fromSnap(element, element.id))
+        .toList();
   }
 
   Future<Product> getProduct(int productId) async {
@@ -18,6 +20,6 @@ class ProductsService {
         .where('id', isEqualTo: productId)
         .get();
 
-    return Product.fromSnap(productsSnapshot.docs.first);
+    return Product.fromSnap(productsSnapshot.docs.first, productsSnapshot.docs.first.id);
   }
 }

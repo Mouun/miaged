@@ -5,10 +5,10 @@ import 'package:miaged/models/product.dart';
 import 'package:miaged/services/categories.service.dart';
 import 'package:miaged/services/products.service.dart';
 import 'package:miaged/views/offer_details.dart';
-import 'package:miaged/widgets/shop/product_card.dart';
 import 'package:miaged/widgets/authentified_appbar.dart';
 import 'package:miaged/widgets/categories_row.dart';
 import 'package:miaged/widgets/loading_indicator.dart';
+import 'package:miaged/widgets/shop/product_card.dart';
 
 import '../locators.dart';
 

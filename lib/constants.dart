@@ -12,3 +12,5 @@ const kDefaultPadding = 24.0;
 // Services Related
 const kCategoriesCollectionName = 'categories';
 const kProductsCollectionName = 'products';
+const kUsersCollectionName = 'appusers';
+const kCartCollectionName = 'carts';
