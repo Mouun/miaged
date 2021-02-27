@@ -59,7 +59,7 @@ class _ProductCardState extends State<ProductCard> {
                   padding: EdgeInsets.only(top: 8),
                   child: Text(
                     widget.product.title,
-                    style: GoogleFonts.montserrat(color: kTextLightColor),
+                    style: GoogleFonts.montserrat(color: kTextDefaultColor),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
