@@ -15,14 +15,8 @@ class _ShopFrameState extends State<ShopFrame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: [
-          for (var bottomNavigationItem
-              in TabNavigationItem.bottomNavigationItems)
-            bottomNavigationItem.page
-        ],
-      ),
+      body:
+          TabNavigationItem.bottomNavigationItems.elementAt(currentIndex).page,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         selectedItemColor: kMainColor,
