@@ -56,7 +56,7 @@ class SignUpPage extends StatelessWidget {
                   validator: (value) {
                     if (value.isEmpty) return 'Le mot de passe est obligatoire';
                     if (!value.isValidPassword())
-                      return 'Le mot de passe doit faire au moins 6 caractères';
+                      return 'Le mot de passe doit faire au moins 4 caractères';
                     return null;
                   },
                 ),
@@ -70,7 +70,7 @@ class SignUpPage extends StatelessWidget {
                     if (value.isEmpty)
                       return 'Le mot de passe de confirmation est obligatoire';
                     if (!value.isValidPassword())
-                      return 'Le mot de passe de confirmation doit faire au moins de 6 caractères';
+                      return 'Le mot de passe de confirmation doit faire au moins de 4 caractères';
                     if (value != passwordController.value.text)
                       return 'Le mot de passe et le mot de passe de confirmation doivent être identiques';
                     return null;

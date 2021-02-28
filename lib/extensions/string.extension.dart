@@ -1,5 +1,5 @@
 extension FormValidation on String {
-  bool isValidPassword() => this.length >= 6;
+  bool isValidPassword() => this.length >= 4;
 
   bool isValidPostalCode() => RegExp(r"^[0-9]{5}$").hasMatch(this);
 }

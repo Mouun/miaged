@@ -51,7 +51,7 @@ class SignInPage extends StatelessWidget {
                 validator: (value) {
                   if (value.isEmpty) return 'Le mot de passe est obligatoire';
                   if (!value.isValidPassword())
-                    return 'Le mot de passe doit faire au moins de 6 caractères';
+                    return 'Le mot de passe doit faire au moins de 4 caractères';
                   return null;
                 },
               ),
