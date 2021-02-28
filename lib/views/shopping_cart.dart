@@ -4,7 +4,7 @@ import 'package:miaged/models/cart.dart';
 import 'package:miaged/models/product.dart';
 import 'package:miaged/services/carts.service.dart';
 import 'package:miaged/widgets/authentified_appbar.dart';
-import 'package:miaged/widgets/cart/cart_item_card.dart';
+import 'package:miaged/widgets/cart_item_card.dart';
 import 'package:miaged/widgets/loading_indicator.dart';
 
 import '../constants.dart';
@@ -107,7 +107,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           ),
                           Spacer(),
                           Text(
-                            '${getCartTotal(snapshot.data.products).toString()}€',
+                            '${getCartTotal(snapshot.data.products).toStringAsFixed(2)}€',
                             style: GoogleFonts.montserrat(
                               color: kTextDefaultColor,
                               fontWeight: FontWeight.bold,

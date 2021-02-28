@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/models/product.dart';
 
-import '../../constants.dart';
+import '../constants.dart';
 
 class CartItemCard extends StatelessWidget {
   final Product product;
