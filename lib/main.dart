@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constants.dart';
 import 'package:miaged/locators.dart';
@@ -36,6 +37,10 @@ class _MyAppState extends State<MyApp> {
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
+            localizationsDelegates: GlobalMaterialLocalizations.delegates,
+            supportedLocales: [
+              const Locale('fr', 'FR'),
+            ],
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primaryColor: kMainColor,

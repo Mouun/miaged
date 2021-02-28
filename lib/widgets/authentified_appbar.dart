@@ -6,11 +6,17 @@ import 'package:miaged/services/auth.service.dart';
 
 class AuthentifiedAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  final _authService = locator<AuthService>();
   final AppBar appBar = new AppBar();
   final String title;
+  final bool showRightActionButton;
+  final String rightActionButtonText;
+  final VoidCallback rightActionButtonOnPressed;
 
-  AuthentifiedAppBar({@required this.title});
+  AuthentifiedAppBar(
+      {@required this.title,
+      this.showRightActionButton = false,
+      this.rightActionButtonText,
+      this.rightActionButtonOnPressed});
 
   @override
   Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
@@ -26,29 +32,24 @@ class AuthentifiedAppBar extends StatelessWidget
         ),
       ),
       elevation: 0,
+      iconTheme: IconThemeData(
+        color: kMainColor, //change your color here
+      ),
       backgroundColor: Colors.white,
-      actionsIconTheme: IconThemeData(color: kTextDefaultColor),
-      actions: [
-        PopupMenuButton<String>(
-          onSelected: (choice) => handlePopupMenuItemClick(choice, context),
-          itemBuilder: (BuildContext context) {
-            return {'Se déconnecter'}.map((String choice) {
-              return PopupMenuItem<String>(
-                value: choice,
-                child: Text(choice),
-              );
-            }).toList();
-          },
-        )
-      ],
+      actions: showRightActionButton
+          ? [
+              FlatButton(
+                onPressed: rightActionButtonOnPressed,
+                child: Text(
+                  rightActionButtonText,
+                  style: GoogleFonts.lato(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ]
+          : [],
     );
-  }
-
-  void handlePopupMenuItemClick(String value, BuildContext context) async {
-    switch (value) {
-      case 'Se déconnecter':
-        await _authService.signOut();
-        Navigator.pushReplacementNamed(context, '/sign-in');
-    }
   }
 }

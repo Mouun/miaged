@@ -41,6 +41,7 @@ class _SignUpState extends State<SignUpPage> {
               ),
             ),
             TextField(
+              obscureText: true,
               controller: passwordController,
               decoration: InputDecoration(
                 labelText: 'Mot de passe',

@@ -10,9 +10,24 @@ class AppUsersService {
         .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
         .get();
 
-    AppUser finalUser =
-        userSnapshot.docs.map((userApp) => AppUser.fromSnap(userApp)).toList()[0];
+    AppUser finalUser = userSnapshot.docs
+        .map((userApp) => AppUser.fromSnap(userApp, userApp.id))
+        .toList()[0];
 
     return finalUser;
+  }
+
+  Future<void> updateAppUserInfo(AppUser newAppUser) async {
+    await FirebaseFirestore.instance
+        .collection(kUsersCollectionName)
+        .doc(newAppUser.firebaseRef)
+        .update(
+      {
+        'birthday': newAppUser.birthdate,
+        'address': newAppUser.address,
+        'postalCode': newAppUser.postalCode,
+        'city': newAppUser.city,
+      },
+    );
   }
 }

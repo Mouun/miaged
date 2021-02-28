@@ -39,4 +39,8 @@ class AuthService {
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
+
+  Future<void> changePassword(String newPassword) async {
+    await FirebaseAuth.instance.currentUser.updatePassword(newPassword);
+  }
 }

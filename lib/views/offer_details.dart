@@ -178,12 +178,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                                       widget.product.firebaseRef,
                                     );
                                     resetIsProductInCart();
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                        'Le produit a été retiré du panier avec succés',
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                    ));
                                   }
                                 : () async {
                                     await _cartService.addProductToCart(
                                       widget.product.firebaseRef,
                                     );
                                     resetIsProductInCart();
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                        'Le produit a été ajouté au panier avec succés',
+                                      ),
+                                      duration: Duration(seconds: 2),
+                                    ));
                                   },
                           ),
                         ),

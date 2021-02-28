@@ -6,8 +6,9 @@ import '../constants.dart';
 class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool danger;
 
-  CustomButton({this.text, this.onPressed});
+  CustomButton({this.text, this.onPressed, this.danger = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CustomButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(6),
       ),
-      color: kMainColor,
+      color: danger ? Colors.redAccent : kMainColor,
       child: Text(
         text,
         style: GoogleFonts.lato(

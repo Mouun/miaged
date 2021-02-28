@@ -130,12 +130,24 @@ class _ShopPageState extends State<ShopPage> {
                                 filteredProducts[index].firebaseRef,
                               );
                               refreshScreenData();
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                  'Le produit a été ajouté au panier avec succés',
+                                ),
+                                duration: Duration(seconds: 2),
+                              ));
                             },
                             removeFromCartAction: () async {
                               await _cartsService.removeProductFromCart(
                                 filteredProducts[index].firebaseRef,
                               );
                               refreshScreenData();
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                  'Le produit a été retiré du panier avec succés',
+                                ),
+                                duration: Duration(seconds: 2),
+                              ));
                             },
                           ),
                         ),
