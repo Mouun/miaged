@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:miaged/widgets/authentified_appbar.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class ImagesGallery extends StatefulWidget {
-
   final int initialIndex;
   final List<String> images;
 
@@ -34,6 +34,7 @@ class _ImagesGalleryState extends State<ImagesGallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AuthentifiedAppBar(title: '', dark: true,),
       body: Container(
         decoration: BoxDecoration(
           color: Colors.black,

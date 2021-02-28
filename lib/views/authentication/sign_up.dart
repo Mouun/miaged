@@ -6,6 +6,7 @@ import 'package:miaged/models/app_user.dart';
 import 'package:miaged/services/auth.service.dart';
 import 'package:miaged/widgets/custom_button.dart';
 import 'package:miaged/widgets/custom_button_empty.dart';
+import 'package:miaged/widgets/unauthentified_appbar.dart';
 
 import '../../constants.dart';
 
@@ -18,7 +19,7 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('MIAGED')),
+      appBar: UnauthentifiedAppBar(),
       resizeToAvoidBottomPadding: false,
       body: Padding(
           padding: const EdgeInsets.all(kDefaultPadding),
@@ -29,9 +30,11 @@ class SignUpPage extends StatelessWidget {
               children: [
                 Text(
                   'S\'inscrire',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 24,
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 24,
+                    ),
                   ),
                 ),
                 TextFormField(
@@ -84,23 +87,7 @@ class SignUpPage extends StatelessWidget {
                       if (_formKey.currentState.validate()) {
                         AppUser newAppUser = await _authService.signUp(
                             loginController.text, passwordController.text);
-                        if (newAppUser == null) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(
-                                  'Erreur',
-                                  style: GoogleFonts.montserrat(),
-                                ),
-                                content: Text(
-                                  'Une erreur est survenue lors de la création du compte.',
-                                  style: GoogleFonts.lato(),
-                                ),
-                              );
-                            },
-                          );
-                        } else {
+                        if (newAppUser != null) {
                           Navigator.pop(
                             context,
                           );

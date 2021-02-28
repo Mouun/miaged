@@ -27,11 +27,10 @@ class ProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(kDefaultPadding / 2),
+              borderRadius: BorderRadius.circular(12),
               child: Hero(
                 tag: product.images[0],
-                child: Image.network(product.images[0],
-                    fit: BoxFit.fitHeight),
+                child: Image.network(product.images[0], fit: BoxFit.fitHeight),
               ),
             ),
           ),
@@ -39,7 +38,7 @@ class ProductCard extends StatelessWidget {
             padding: EdgeInsets.only(top: 8),
             child: Text(
               product.title,
-              style: GoogleFonts.montserrat(color: kTextDefaultColor),
+              style: GoogleFonts.montserrat(),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -69,9 +68,7 @@ class ProductCard extends StatelessWidget {
                   color: kMainColor,
                   size: 24,
                 ),
-                onPressed: isInCart
-                    ? removeFromCartAction
-                    : addToCartAction,
+                onPressed: isInCart ? removeFromCartAction : addToCartAction,
               ),
             ],
           ),

@@ -6,12 +6,14 @@ class AuthentifiedAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final AppBar appBar = new AppBar();
   final String title;
+  final bool dark;
   final bool showRightActionButton;
   final String rightActionButtonText;
   final VoidCallback rightActionButtonOnPressed;
 
   AuthentifiedAppBar(
       {@required this.title,
+      this.dark = false,
       this.showRightActionButton = false,
       this.rightActionButtonText,
       this.rightActionButtonOnPressed});
@@ -25,15 +27,15 @@ class AuthentifiedAppBar extends StatelessWidget
       title: Text(
         title,
         style: GoogleFonts.montserrat(
-          color: kMainColor,
+          color: dark ? Colors.white : kMainColor,
           fontWeight: FontWeight.w700,
         ),
       ),
       elevation: 0,
       iconTheme: IconThemeData(
-        color: kMainColor, //change your color here
+        color: dark ? Colors.white : kMainColor, //change your color here
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: dark ? Colors.black : Colors.white,
       actions: showRightActionButton
           ? [
               FlatButton(

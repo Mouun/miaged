@@ -43,7 +43,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
               primary: kMainColor,
               onPrimary: Colors.white,
               surface: kMainColor,
-              onSurface: kTextDefaultColor,
             ),
             primaryColor: kMainColor,
             dialogBackgroundColor: Colors.white,
@@ -164,11 +163,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               },
                             ),
                             TextFormField(
-                              controller: addressController,
-                              decoration: InputDecoration(
-                                labelText: 'Adresse',
-                              )
-                            ),
+                                controller: addressController,
+                                decoration: InputDecoration(
+                                  labelText: 'Adresse',
+                                )),
                             TextFormField(
                               controller: postalCodeController,
                               decoration: InputDecoration(
@@ -176,7 +174,8 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               ),
                               keyboardType: TextInputType.number,
                               validator: (value) {
-                                if (value.isNotEmpty && !value.isValidPostalCode()) {
+                                if (value.isNotEmpty &&
+                                    !value.isValidPostalCode()) {
                                   return 'Le code postal doit être composé de 5 chiffres';
                                 }
                                 return null;

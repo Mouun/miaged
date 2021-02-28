@@ -49,44 +49,55 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           if (snapshot.hasData) {
             return Stack(
               children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 54),
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: RefreshIndicator(
-                          color: kMainColor,
-                          onRefresh: fetchCart,
-                          child: ListView.separated(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: kDefaultPadding,
-                              vertical: kDefaultPadding - 8,
+                snapshot.data.products.length > 0
+                    ? Container(
+                        margin: EdgeInsets.only(bottom: 54),
+                        color: Colors.white,
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: RefreshIndicator(
+                                color: kMainColor,
+                                onRefresh: fetchCart,
+                                child: ListView.separated(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: kDefaultPadding,
+                                    vertical: kDefaultPadding - 8,
+                                  ),
+                                  itemCount: snapshot.data.products.length,
+                                  itemBuilder: (context, index) {
+                                    return CartItemCard(
+                                      product: snapshot.data.products[index],
+                                      onTap: () async {
+                                        await _cartsService
+                                            .removeProductFromCart(
+                                          snapshot
+                                              .data.products[index].firebaseRef,
+                                        );
+                                        fetchCart();
+                                      },
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (BuildContext context, int index) {
+                                    return SizedBox(
+                                      height: kDefaultPadding,
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                            itemCount: snapshot.data.products.length,
-                            itemBuilder: (context, index) {
-                              return CartItemCard(
-                                product: snapshot.data.products[index],
-                                onTap: () async {
-                                  await _cartsService.removeProductFromCart(
-                                    snapshot.data.products[index].firebaseRef,
-                                  );
-                                  fetchCart();
-                                },
-                              );
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) {
-                              return SizedBox(
-                                height: kDefaultPadding,
-                              );
-                            },
+                          ],
+                        ),
+                      )
+                    : Center(
+                        child: Text(
+                          'Votre panier est vide',
+                          style: GoogleFonts.lato(
+                            fontSize: 18,
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
                 Positioned(
                   child: Container(
                     color: Colors.white,
@@ -109,7 +120,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           Text(
                             '${getCartTotal(snapshot.data.products).toStringAsFixed(2)}€',
                             style: GoogleFonts.montserrat(
-                              color: kTextDefaultColor,
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),

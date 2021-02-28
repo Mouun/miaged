@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 // Colors
-const kMainColor = Color(0xFF5438DC);
-const kSecondaryColor = Color(0xFFB7AEE9);
-const kTextDefaultColor = Color(0xFF272D2D);
+const kMainColor = Color(0xFF3BCEAC);
 const kTextLightColor = Color(0xFF95969D);
-const kShimmerBaseColor = Color(0xFFE8E8E8);
 
 // Sizes
 const kDefaultPadding = 24.0;
+const kDefaultMargin = 24.0;
 
 // Services Related
 const kCategoriesCollectionName = 'categories';

@@ -20,6 +20,7 @@ class ProductsService {
         .where('id', isEqualTo: productId)
         .get();
 
-    return Product.fromSnap(productsSnapshot.docs.first, productsSnapshot.docs.first.id);
+    return Product.fromSnap(
+        productsSnapshot.docs.first, productsSnapshot.docs.first.id);
   }
 }

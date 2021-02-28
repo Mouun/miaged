@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/views/offer_details.dart';
 
 import '../constants.dart';
 
@@ -21,14 +22,32 @@ class CartItemCard extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.only(right: kDefaultPadding),
-              child: SizedBox(
-                width: 90,
-                height: 90,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(kDefaultPadding / 2),
-                  child: Image.network(
-                    product.images[0],
-                    fit: BoxFit.cover,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return ProductDetailsPage(
+                          product: product,
+                          fromCart: true,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  width: 90,
+                  height: 90,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Hero(
+                      tag: product.images[0],
+                      child: Image.network(
+                        product.images[0],
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -39,7 +58,7 @@ class CartItemCard extends StatelessWidget {
                 children: [
                   Text(
                     product.title,
-                    style: GoogleFonts.montserrat(color: kTextDefaultColor),
+                    style: GoogleFonts.montserrat(),
                     overflow: TextOverflow.ellipsis,
                   ),
                   Padding(

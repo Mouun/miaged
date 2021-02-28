@@ -47,10 +47,9 @@ class _MyAppState extends State<MyApp> {
             theme: ThemeData(
               primaryColor: kMainColor,
               accentColor: kMainColor,
+              cursorColor: kMainColor,
               textTheme: GoogleFonts.latoTextTheme(
                 textTheme,
-              ).copyWith(
-                bodyText2: TextStyle(color: kTextDefaultColor),
               ),
             ),
             initialRoute: initialRoute,

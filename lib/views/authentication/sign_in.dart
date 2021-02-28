@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constants.dart';
 import 'package:miaged/extensions/string.extension.dart';
 import 'package:miaged/locators.dart';
 import 'package:miaged/services/auth.service.dart';
 import 'package:miaged/widgets/custom_button.dart';
 import 'package:miaged/widgets/custom_button_empty.dart';
+import 'package:miaged/widgets/unauthentified_appbar.dart';
 
 class SignInPage extends StatelessWidget {
   final _authService = locator<AuthService>();
@@ -15,7 +17,7 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('MIAGED')),
+      appBar: UnauthentifiedAppBar(),
       resizeToAvoidBottomPadding: false,
       body: Padding(
         padding: EdgeInsets.all(kDefaultPadding),
@@ -26,17 +28,18 @@ class SignInPage extends StatelessWidget {
             children: [
               Text(
                 'Se connecter',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 24,
+                style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 24,
+                  ),
                 ),
               ),
               TextFormField(
                 controller: loginController,
                 decoration: InputDecoration(labelText: 'Login'),
                 validator: (value) {
-                  if (value.isEmpty)
-                    return 'Le login est obligatoire';
+                  if (value.isEmpty) return 'Le login est obligatoire';
                   return null;
                 },
               ),
@@ -66,6 +69,33 @@ class SignInPage extends StatelessWidget {
                           passwordController.value.text);
                       if (result != null) {
                         Navigator.pushReplacementNamed(context, '/shop');
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text(
+                                'Erreur',
+                                style: GoogleFonts.montserrat(),
+                              ),
+                              content: Text(
+                                'Aucun compte ne correspond aux informations que vous avez saisies',
+                                style: GoogleFonts.lato(),
+                              ),
+                              actions: [
+                                FlatButton(
+                                  child: Text(
+                                    'Ok',
+                                    style: GoogleFonts.lato(color: kMainColor),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            );
+                          },
+                        );
                       }
                     }
                   },

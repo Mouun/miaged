@@ -11,7 +11,8 @@ class CategoriesRow extends StatefulWidget {
   final List<Category> categories;
   final IntCallback handleClickCategory;
 
-  CategoriesRow({@required this.categories, @required this.handleClickCategory});
+  CategoriesRow(
+      {@required this.categories, @required this.handleClickCategory});
 
   @override
   _CategoriesRowState createState() => _CategoriesRowState();
@@ -43,7 +44,9 @@ class _CategoriesRowState extends State<CategoriesRow> {
                   widget.categories[index].label.capitalize(),
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.w700,
-                    color: selectedCategoryIndex == index ? kMainColor : kTextLightColor,
+                    color: selectedCategoryIndex == index
+                        ? kMainColor
+                        : kTextLightColor,
                   ),
                 ),
               ),

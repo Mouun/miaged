@@ -20,7 +20,8 @@ class CartsService {
     List<Product> finalCart = [];
     for (final DocumentReference productRef in productRefs) {
       DocumentSnapshot productRefSnapshot = await productRef.get();
-      finalCart.add(Product.fromSnap(productRefSnapshot, productRefSnapshot.id));
+      finalCart
+          .add(Product.fromSnap(productRefSnapshot, productRefSnapshot.id));
     }
 
     return Cart.fromSnap(cartSnapshot.docs.first, finalCart);

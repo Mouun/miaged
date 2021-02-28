@@ -10,7 +10,8 @@ class Cart {
     this.products,
   });
 
-  factory Cart.fromSnap(QueryDocumentSnapshot cartSnap, List<Product> cartItems) {
+  factory Cart.fromSnap(
+      QueryDocumentSnapshot cartSnap, List<Product> cartItems) {
     return Cart(
       uid: cartSnap.data()['uid'],
       products: cartItems,
