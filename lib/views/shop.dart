@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:miaged/constants.dart';
+import 'package:miaged/models/cart.dart';
 import 'package:miaged/models/category.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/services/carts.service.dart';
 import 'package:miaged/services/categories.service.dart';
 import 'package:miaged/services/products.service.dart';
 import 'package:miaged/views/offer_details.dart';
 import 'package:miaged/widgets/authentified_appbar.dart';
 import 'package:miaged/widgets/categories_row.dart';
 import 'package:miaged/widgets/loading_indicator.dart';
-import 'package:miaged/widgets/shop/product_card.dart';
+import 'package:miaged/widgets/product_card.dart';
 
 import '../locators.dart';
 
@@ -21,16 +23,18 @@ class _ShopPageState extends State<ShopPage> {
   Future<ShopViewData> viewData;
   ProductsService _productsService = locator<ProductsService>();
   CategoriesService _categoriesService = locator<CategoriesService>();
+  CartsService _cartsService = locator<CartsService>();
 
   int selectedCategoryIndex = 0;
 
   Future<ShopViewData> fetchScreenData() async {
     List<Product> products = await _productsService.getAllProducts();
     List<Category> categories = await _categoriesService.getAllCategories();
-    return ShopViewData(products: products, categories: categories);
+    Cart cart = await _cartsService.getCart();
+    return ShopViewData(products: products, categories: categories, cart: cart);
   }
 
-  Future<void> _handleRefresh() async {
+  Future<void> refreshScreenData() async {
     setState(() {
       viewData = fetchScreenData();
     });
@@ -46,6 +50,11 @@ class _ShopPageState extends State<ShopPage> {
     } else {
       return baseData.products;
     }
+  }
+
+  isProductInCart(Cart cart, Product product) {
+    return cart.products
+        .any((element) => element.firebaseRef == product.firebaseRef);
   }
 
   @override
@@ -83,7 +92,7 @@ class _ShopPageState extends State<ShopPage> {
                   Expanded(
                     child: RefreshIndicator(
                       color: kMainColor,
-                      onRefresh: _handleRefresh,
+                      onRefresh: refreshScreenData,
                       child: GridView.builder(
                         padding: EdgeInsets.symmetric(
                           horizontal: kDefaultPadding,
@@ -100,6 +109,10 @@ class _ShopPageState extends State<ShopPage> {
                           color: Colors.white,
                           child: ProductCard(
                             product: filteredProducts[index],
+                            isInCart: isProductInCart(
+                              snapshot.data.cart,
+                              filteredProducts[index],
+                            ),
                             handleOnTap: () {
                               Navigator.push(
                                 context,
@@ -111,6 +124,18 @@ class _ShopPageState extends State<ShopPage> {
                                   },
                                 ),
                               );
+                            },
+                            addToCartAction: () async {
+                              await _cartsService.addProductToCart(
+                                filteredProducts[index].firebaseRef,
+                              );
+                              refreshScreenData();
+                            },
+                            removeFromCartAction: () async {
+                              await _cartsService.removeProductFromCart(
+                                filteredProducts[index].firebaseRef,
+                              );
+                              refreshScreenData();
                             },
                           ),
                         ),
@@ -133,6 +158,7 @@ class _ShopPageState extends State<ShopPage> {
 class ShopViewData {
   List<Product> products;
   List<Category> categories;
+  Cart cart;
 
-  ShopViewData({this.products, this.categories});
+  ShopViewData({this.products, this.categories, this.cart});
 }
