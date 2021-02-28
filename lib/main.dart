@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -6,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constants.dart';
 import 'package:miaged/locators.dart';
 import 'package:miaged/routes.dart';
+import 'package:miaged/services/app_users.service.dart';
 import 'package:miaged/widgets/loading_indicator.dart';
 
 void main() {
@@ -20,6 +20,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  AppUsersService _appUsersService = locator<AppUsersService>();
+
   var initialRoute = '/sign-in';
 
   @override
@@ -27,9 +29,9 @@ class _MyAppState extends State<MyApp> {
     final textTheme = Theme.of(context).textTheme;
 
     return FutureBuilder(
-      future: initializeFirebase(),
+      future: initializeApp(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) initialRoute = '/shop';
+        if (snapshot.hasData && snapshot.data != null) initialRoute = '/shop';
         if (snapshot.hasError) {
           return Center(
             child: Text(snapshot.error.toString()),
@@ -60,8 +62,8 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  Future<User> initializeFirebase() async {
+  Future<String> initializeApp() async {
     await Firebase.initializeApp();
-    return FirebaseAuth.instance.currentUser;
+    return _appUsersService.getAppUserFirebaseRef();
   }
 }

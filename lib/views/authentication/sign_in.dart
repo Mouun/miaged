@@ -6,22 +6,11 @@ import 'package:miaged/services/auth.service.dart';
 import 'package:miaged/widgets/custom_button.dart';
 import 'package:miaged/widgets/custom_button_empty.dart';
 
-class SignInPage extends StatefulWidget {
-  @override
-  _SignInState createState() => _SignInState();
-}
-
-class _SignInState extends State<SignInPage> {
+class SignInPage extends StatelessWidget {
   final _authService = locator<AuthService>();
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  final loginController = TextEditingController();
   final passwordController = TextEditingController();
-
-  @override
-  void dispose() {
-    passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +32,11 @@ class _SignInState extends State<SignInPage> {
                 ),
               ),
               TextFormField(
-                controller: emailController,
-                decoration: InputDecoration(labelText: 'Email'),
-                keyboardType: TextInputType.emailAddress,
+                controller: loginController,
+                decoration: InputDecoration(labelText: 'Login'),
                 validator: (value) {
                   if (value.isEmpty)
-                    return 'L\'adresse email est obligatoire';
-                  if (!value.isValidEmailAddress())
-                    return 'L\'adresse email n\'est pas valide';
+                    return 'Le login est obligatoire';
                   return null;
                 },
               ),
@@ -76,7 +62,7 @@ class _SignInState extends State<SignInPage> {
                   onPressed: () async {
                     if (_formKey.currentState.validate()) {
                       var result = await _authService.signIn(
-                          emailController.value.text,
+                          loginController.value.text,
                           passwordController.value.text);
                       if (result != null) {
                         Navigator.pushReplacementNamed(context, '/shop');

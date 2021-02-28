@@ -1,29 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AppUser {
-  final String firebaseRef;
-  final String uid;
-  final String email;
+  final String login;
+  final String password;
   final String address;
   final String postalCode;
   final String city;
   final Timestamp birthdate;
 
   AppUser({
-    this.firebaseRef,
-    this.uid,
-    this.email,
+    this.login,
+    this.password,
     this.address,
     this.postalCode,
     this.city,
     this.birthdate,
   });
 
-  factory AppUser.fromSnap(QueryDocumentSnapshot appUserSnap, String firebaseRef) {
+  factory AppUser.fromSnap(DocumentSnapshot appUserSnap) {
     return AppUser(
-      firebaseRef: firebaseRef,
-      uid: appUserSnap.data()['uid'],
-      email: appUserSnap.data()['email'],
+      login: appUserSnap.data()['login'],
+      password: appUserSnap.data()['password'],
       address: appUserSnap.data()['address'],
       postalCode: appUserSnap.data()['postalCode'],
       city: appUserSnap.data()['city'],

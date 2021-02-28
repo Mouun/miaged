@@ -1,14 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged/constants.dart';
+import 'package:miaged/locators.dart';
 import 'package:miaged/models/cart.dart';
 import 'package:miaged/models/product.dart';
+import 'package:miaged/services/app_users.service.dart';
 
 class CartsService {
+  AppUsersService _appUsersService = locator<AppUsersService>();
+
   Future<Cart> getCart() async {
+    String appUserFirebaseRef = await _appUsersService.getAppUserFirebaseRef();
+
     QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
         .collection(kCartCollectionName)
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .where('uid', isEqualTo: appUserFirebaseRef)
         .get();
 
     List<dynamic> productRefs = cartSnapshot.docs.first.data()['products'];
@@ -32,9 +37,11 @@ class CartsService {
   }
 
   Future<void> addProductToCart(String firebaseRef) async {
+    String appUserFirebaseRef = await _appUsersService.getAppUserFirebaseRef();
+
     QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
         .collection(kCartCollectionName)
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .where('uid', isEqualTo: appUserFirebaseRef)
         .get();
 
     DocumentReference productRef = FirebaseFirestore.instance
@@ -47,9 +54,11 @@ class CartsService {
   }
 
   Future<void> removeProductFromCart(String firebaseRef) async {
+    String appUserFirebaseRef = await _appUsersService.getAppUserFirebaseRef();
+
     QuerySnapshot cartSnapshot = await FirebaseFirestore.instance
         .collection(kCartCollectionName)
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .where('uid', isEqualTo: appUserFirebaseRef)
         .get();
 
     DocumentReference productRef = FirebaseFirestore.instance

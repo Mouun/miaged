@@ -1,6 +1,6 @@
 extension FormValidation on String {
-  bool isValidEmailAddress() => RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$').hasMatch(this);
   bool isValidPassword() => this.length >= 6;
+  bool isValidPostalCode() => RegExp(r"^[0-9]{5}$").hasMatch(this);
 }
 
 extension Syntax on String {

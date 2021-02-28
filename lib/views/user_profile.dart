@@ -1,16 +1,13 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:miaged/models/app_user.dart';
 import 'package:miaged/services/app_users.service.dart';
 import 'package:miaged/services/auth.service.dart';
-import 'package:miaged/views/change_password.dart';
 import 'package:miaged/widgets/authentified_appbar.dart';
 import 'package:miaged/widgets/custom_button.dart';
-import 'package:miaged/widgets/custom_button_empty.dart';
 import 'package:miaged/widgets/loading_indicator.dart';
+import 'package:miaged/extensions/string.extension.dart';
 
 import '../constants.dart';
 import '../locators.dart';
@@ -22,12 +19,12 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   Future<AppUser> userInfo;
-  AppUser initialUserInfo;
   AppUsersService _appUsersService = locator<AppUsersService>();
   AuthService _authService = locator<AuthService>();
 
   final _formKey = GlobalKey<FormState>();
   DateTime selectedDate;
+  TextEditingController passwordController = TextEditingController();
   TextEditingController birthdayController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController postalCodeController = TextEditingController();
@@ -68,12 +65,11 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
     selectedDate = userInfo.birthdate.toDate();
 
+    passwordController.text = userInfo.password;
     birthdayController.text = getFormattedDate(userInfo.birthdate.toDate());
     addressController.text = userInfo.address;
     postalCodeController.text = userInfo.postalCode;
     cityController.text = userInfo.city;
-
-    initialUserInfo = userInfo;
 
     return userInfo;
   }
@@ -82,6 +78,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
   void initState() {
     userInfo = fetchUserInfo();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    birthdayController.dispose();
+    addressController.dispose();
+    postalCodeController.dispose();
+    cityController.dispose();
+    super.dispose();
   }
 
   @override
@@ -96,7 +102,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
           if (_formKey.currentState.validate()) {
             await _appUsersService.updateAppUserInfo(
               AppUser(
-                firebaseRef: initialUserInfo.firebaseRef,
+                password: passwordController.value.text,
                 birthdate: Timestamp.fromDate(selectedDate),
                 address: addressController.value.text,
                 postalCode: postalCodeController.value.text,
@@ -133,16 +139,16 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         child: Column(
                           children: [
                             TextFormField(
-                              initialValue: snapshot.data.email,
-                              decoration: InputDecoration(labelText: 'Email'),
+                              initialValue: snapshot.data.login,
+                              decoration: InputDecoration(labelText: 'Login'),
                               readOnly: true,
                               keyboardType: TextInputType.emailAddress,
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'L\'adresse email est requise';
-                                }
-                                return null;
-                              },
+                            ),
+                            TextFormField(
+                              controller: passwordController,
+                              decoration:
+                                  InputDecoration(labelText: 'Mot de passe'),
+                              obscureText: true,
                             ),
                             TextFormField(
                               controller: birthdayController,
@@ -161,25 +167,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               controller: addressController,
                               decoration: InputDecoration(
                                 labelText: 'Adresse',
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'L\'adresse est requise';
-                                }
-                                return null;
-                              },
+                              )
                             ),
                             TextFormField(
                               controller: postalCodeController,
                               decoration: InputDecoration(
                                 labelText: 'Code postal',
                               ),
+                              keyboardType: TextInputType.number,
                               validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Le code postal est requis';
-                                }
-                                if (value.length != 5) {
-                                  return 'Le code postal doit faire 5 caractères';
+                                if (value.isNotEmpty && !value.isValidPostalCode()) {
+                                  return 'Le code postal doit être composé de 5 chiffres';
                                 }
                                 return null;
                               },
@@ -189,28 +187,9 @@ class _UserProfilePageState extends State<UserProfilePage> {
                               decoration: InputDecoration(
                                 labelText: 'Ville',
                               ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'La ville est requise';
-                                }
-                                return null;
-                              },
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: kDefaultPadding / 2),
-                      child: CustomButtonEmpty(
-                        text: 'Changer le mot de passe',
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ChangePassword()),
-                          );
-                        },
                       ),
                     ),
                     CustomButton(

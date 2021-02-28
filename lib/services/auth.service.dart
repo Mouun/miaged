@@ -1,46 +1,61 @@
 import 'dart:async';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:miaged/constants.dart';
+import 'package:miaged/models/app_user.dart';
+import 'package:miaged/services/app_users.service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../locators.dart';
 
 class AuthService {
-  Future<UserCredential> signUp(String email, String password) async {
-    UserCredential userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
+  Future<AppUser> signUp(String login, String password) async {
+    AppUsersService _appUsersService = locator<AppUsersService>();
+
+    DocumentReference newAppUser =
+        await FirebaseFirestore.instance.collection(kUsersCollectionName).add(
+      {
+        'login': login,
+        'password': password,
+        'birthday': Timestamp.fromDate(DateTime(1900)),
+        'address': '',
+        'postalCode': '',
+        'city': '',
+      },
+    );
+
+    if (newAppUser != null) {
+      await FirebaseFirestore.instance.collection(kCartCollectionName).add(
+        {
+          'uid': newAppUser.id,
+          'products': [],
+        },
+      );
+
+      return _appUsersService.getAppUser(appUserRef: newAppUser.id);
     }
-    return userCredential;
+    return null;
   }
 
-  Future<UserCredential> signIn(String email, String password) async {
-    var userCredential;
-    try {
-      userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    } catch (e) {
-      print(e);
+  Future<AppUser> signIn(String login, String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    QuerySnapshot appUserSnapshot = await FirebaseFirestore.instance
+        .collection(kUsersCollectionName)
+        .where('login', isEqualTo: login)
+        .where('password', isEqualTo: password)
+        .get();
+
+    if (appUserSnapshot.docs.isEmpty) {
+      return null;
     }
-    return userCredential;
+
+    prefs.setString('UID', appUserSnapshot.docs.first.id);
+
+    return AppUser.fromSnap(appUserSnapshot.docs.first);
   }
 
   Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-  }
-
-  Future<void> changePassword(String newPassword) async {
-    await FirebaseAuth.instance.currentUser.updatePassword(newPassword);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
   }
 }

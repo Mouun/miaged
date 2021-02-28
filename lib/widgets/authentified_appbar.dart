@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:miaged/constants.dart';
-import 'package:miaged/locators.dart';
-import 'package:miaged/services/auth.service.dart';
 
 class AuthentifiedAppBar extends StatelessWidget
     implements PreferredSizeWidget {

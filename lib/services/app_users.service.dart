@@ -1,28 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:miaged/constants.dart';
 import 'package:miaged/models/app_user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppUsersService {
-  Future<AppUser> getAppUser() async {
-    QuerySnapshot userSnapshot = await FirebaseFirestore.instance
+  Future<String> getAppUserFirebaseRef() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('UID');
+  }
+
+  Future<AppUser> getAppUser({String appUserRef = ''}) async {
+    String firebaseRef = await getAppUserFirebaseRef();
+
+    DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
         .collection(kUsersCollectionName)
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .doc(appUserRef.isNotEmpty ? appUserRef : firebaseRef)
         .get();
 
-    AppUser finalUser = userSnapshot.docs
-        .map((userApp) => AppUser.fromSnap(userApp, userApp.id))
-        .toList()[0];
-
-    return finalUser;
+    return AppUser.fromSnap(userSnapshot);
   }
 
   Future<void> updateAppUserInfo(AppUser newAppUser) async {
+    String firebaseRef = await getAppUserFirebaseRef();
+
     await FirebaseFirestore.instance
         .collection(kUsersCollectionName)
-        .doc(newAppUser.firebaseRef)
+        .doc(firebaseRef)
         .update(
       {
+        'password': newAppUser.password,
         'birthday': newAppUser.birthdate,
         'address': newAppUser.address,
         'postalCode': newAppUser.postalCode,

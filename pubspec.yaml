@@ -23,7 +23,6 @@ environment:
 dependencies:
   curved_navigation_bar: ^0.3.7
   firebase_core: ^0.7.0
-  firebase_auth: ^0.20.0+1
   cloud_firestore: ^0.16.0
   provider: ^4.3.3
   http: ^0.12.2
@@ -33,6 +32,7 @@ dependencies:
   expand_widget: ^1.2.0+1
   flutter_swiper: ^1.1.6
   intl: ^0.16.1
+  shared_preferences: ^0.5.12+4
   flutter:
     sdk: flutter
   flutter_localizations:
